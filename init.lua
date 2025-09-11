@@ -91,6 +91,17 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- MY CHANGES
+
+-- auto format c with clang-format + null-ls
+-- null-ls is in /custom/plugin/null-ls.lua
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.c', '0.h', '*.cpp', '*.hpp' },
+  callback = function()
+    vim.lsp.buf.format { async = false }
+  end,
+})
+
 vim.keymap.set('n', '<C-Down>', '<C-e>', { desc = 'Scroll window down' })
 vim.keymap.set('i', '<C-Down>', '<C-o><C-e>', { desc = 'Scroll window down (insert mode)' })
 
