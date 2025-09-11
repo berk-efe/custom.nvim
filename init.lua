@@ -261,7 +261,22 @@ rtp:prepend(lazypath)
 require('lazy').setup({
 
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  {
+    'NMAC427/guess-indent.nvim',
+    config = function()
+      require('guess-indent').setup {
+        auto_cmd = true,
+        override_editorconfig = false,
+        filetype_exclude = { 'netrw', 'tutor' },
+        buftype_exclude = { 'help', 'nofile', 'terminal', 'prompt' },
+        default = {
+          expandtab = true,
+          shiftwidth = 4,
+          tabstop = 4,
+        },
+      }
+    end,
+  }, -- Detect tabstop and shiftwidth automatically
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
 
