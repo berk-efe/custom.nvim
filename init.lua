@@ -91,8 +91,6 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- MY CHANGES
-vim.lsp.enable 'rust_analyzer'
-
 vim.keymap.set('n', '<C-Down>', '<C-e>', { desc = 'Scroll window down' })
 vim.keymap.set('i', '<C-Down>', '<C-o><C-e>', { desc = 'Scroll window down (insert mode)' })
 
@@ -723,14 +721,14 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         pyright = {
           on_init = function(client)
             client.notify('workspace/didChangeConfiguration', { settings = {} })
           end,
         },
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
