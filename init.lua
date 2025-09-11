@@ -103,6 +103,14 @@ vim.keymap.set('i', '<C-Up>', '<C-o><C-y>', { desc = 'Scroll window down (insert
 vim.keymap.set('x', '>', '>gv', { noremap = true, silent = true })
 vim.keymap.set('x', '<', '<gv', { noremap = true, silent = true })
 
+-- default indentation
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+
+-- MY CHANGES END
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -264,15 +272,28 @@ require('lazy').setup({
   {
     'NMAC427/guess-indent.nvim',
     config = function()
+      -- This is the default configuration
       require('guess-indent').setup {
-        auto_cmd = true,
-        override_editorconfig = false,
-        filetype_exclude = { 'netrw', 'tutor' },
-        buftype_exclude = { 'help', 'nofile', 'terminal', 'prompt' },
-        default = {
-          expandtab = true,
-          shiftwidth = 4,
-          tabstop = 4,
+        auto_cmd = true, -- Set to false to disable automatic execution
+        override_editorconfig = false, -- Set to true to override settings set by .editorconfig
+        filetype_exclude = { -- A list of filetypes for which the auto command gets disabled
+          'netrw',
+          'tutor',
+        },
+        buftype_exclude = { -- A list of buffer types for which the auto command gets disabled
+          'help',
+          'nofile',
+          'terminal',
+          'prompt',
+        },
+        on_tab_options = { -- A table of vim options when tabs are detected
+          ['expandtab'] = false,
+        },
+        on_space_options = { -- A table of vim options when spaces are detected
+          ['expandtab'] = true,
+          ['tabstop'] = 'detected', -- If the option value is 'detected', The value is set to the automatically detected indent size.
+          ['softtabstop'] = 'detected',
+          ['shiftwidth'] = 'detected',
         },
       }
     end,
